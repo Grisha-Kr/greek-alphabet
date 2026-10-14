@@ -5,7 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Греческий алфавит — Маунс, гл. 3</title>
 <meta name="theme-color" content="#f4efe4">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237a2e1f'/%3E%3Ctext x='16' y='24' font-size='22' text-anchor='middle' fill='%23f4efe4' font-family='serif'%3Eα%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Алфавит">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1320x2868.png">
+<link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1290x2796.png">
+<link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1206x2622.png">
+<link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1179x2556.png">
+<link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1170x2532.png">
+<link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1284x2778.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1125x2436.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-828x1792.png">
+<link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="img/splash-1242x2688.png">
+<link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-750x1334.png">
+<link rel="apple-touch-startup-image" media="(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-1488x2266.png">
+<link rel="apple-touch-startup-image" media="(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-1620x2160.png">
+<link rel="apple-touch-startup-image" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-1640x2360.png">
+<link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-1668x2388.png">
+<link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="img/splash-2048x2732.png">
 <style>
 @font-face{font-family:"Gentium Plus";src:url(GentiumPlus-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Gentium Plus";src:url(GentiumPlus-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
@@ -94,9 +115,16 @@ tr:last-child td{border-bottom:0}
 [hidden]{display:none!important}
 .done{text-align:center;padding:30px 10px}
 .done .big{font-size:4rem}
+#splash{position:fixed;inset:0;z-index:100;background:#f4efe4;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .5s ease}
+#splash img{width:42vw;max-width:220px;border-radius:22%;box-shadow:0 10px 30px rgba(60,40,20,.18)}
+#splash b{font-family:var(--serif);font-size:1.6rem;color:#2a2420}
+#splash span{font-family:var(--serif);color:#7a6f63;margin-top:-14px}
+#splash.hide{opacity:0;pointer-events:none}
 </style>
 </head>
 <body>
+<div id="splash" hidden><img src="img/icon-512.png" alt=""><b>Греческий алфавит</b><span>по учебнику У. Д. Маунса, глава 3</span></div>
+<script>(function(){var st=window.navigator.standalone||matchMedia('(display-mode: standalone)').matches;if(!st)return;var e=document.getElementById('splash');e.hidden=false;setTimeout(function(){e.classList.add('hide');setTimeout(function(){e.remove()},600)},1400)})();</script>
 <div class="wrap">
   <header>
     <svg viewBox="0 0 32 32" fill="none" aria-label="Логотип: альфа и омега"><rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="currentColor" stroke-width="2"/><text x="16" y="22.5" text-anchor="middle" font-size="17" fill="currentColor" font-family="Gentium Plus,serif">αω</text></svg>
