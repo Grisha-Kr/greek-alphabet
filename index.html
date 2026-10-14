@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Греческий алфавит — Маунс, гл. 3</title>
+<meta name="theme-color" content="#f4efe4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237a2e1f'/%3E%3Ctext x='16' y='24' font-size='22' text-anchor='middle' fill='%23f4efe4' font-family='serif'%3Eα%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Gentium Plus";src:url(GentiumPlus-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Gentium Plus";src:url(GentiumPlus-Bold.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{
+  --bg:#f4efe4;--surface:#fbf8f1;--ink:#2a2420;--muted:#7a6f63;--line:#ddd3c2;
+  --accent:#7a2e1f;--accent-ink:#fbf8f1;--good:#3d6b3a;--bad:#9b3a2a;
+  --radius:18px;--shadow:0 1px 2px rgba(60,40,20,.06),0 8px 24px rgba(60,40,20,.08);
+  --serif:"Gentium Plus","Georgia",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#1c1916;--surface:#26221e;--ink:#eee6d8;--muted:#a3978a;--line:#3a342e;
+  --accent:#d9896f;--accent-ink:#1c1916;--good:#8fc08a;--bad:#e08a78;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3)}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100dvh;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 96px}
+header{display:flex;align-items:center;gap:10px;padding:6px 0 14px}
+header svg{width:30px;height:30px;color:var(--accent);flex:none}
+header h1{font-family:var(--serif);font-size:1.25rem;font-weight:700;line-height:1.1}
+header p{font-size:.78rem;color:var(--muted)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);
+  display:flex;justify-content:center;padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:10}
+nav.tabs button{flex:1;max-width:180px;border:0;background:none;color:var(--muted);font:600 .8rem var(--sans);
+  padding:8px 4px;border-radius:12px;cursor:pointer}
+nav.tabs button span{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:400;line-height:1.1}
+nav.tabs button[aria-selected=true]{color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:none;color:var(--muted);font:600 .8rem var(--sans);padding:7px 10px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .9rem var(--sans);
+  padding:12px 14px;border-radius:14px;cursor:pointer;min-height:48px}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.good{border-color:var(--good);color:var(--good)}
+.btn.bad{border-color:var(--bad);color:var(--bad)}
+.meta{font-size:.8rem;color:var(--muted)}
+.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin:12px 0 14px}
+.bar i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
+/* flip card */
+.stage{perspective:1200px;margin:6px 0 14px}
+.card{position:relative;height:min(62vh,420px);transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1);cursor:pointer}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:22px;text-align:center}
+.face.back{transform:rotateY(180deg)}
+.face .num{position:absolute;top:14px;left:16px;font-size:.75rem;color:var(--muted)}
+.face .hint{position:absolute;bottom:14px;font-size:.75rem;color:var(--muted)}
+.big{font-family:var(--serif);font-size:clamp(6rem,30vw,9rem);line-height:1}
+.upper{font-family:var(--serif);font-size:1.25rem;color:var(--muted);margin-top:10px}
+.ru{font-family:var(--serif);font-weight:700;font-size:2rem}
+.gn{font-family:var(--serif);font-size:1.6rem;margin-top:4px}
+.pron{font-family:var(--serif);font-size:2.6rem;margin-top:10px}
+.pron sup{font-size:.55em}
+.pnote{font-family:var(--serif);font-style:italic;color:var(--muted);margin-top:2px}
+.note{font-size:.92rem;line-height:1.45;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);max-width:34ch}
+.src{font-size:.7rem;color:var(--muted);margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* quiz */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:24px 16px;text-align:center;margin:10px 0 14px;min-height:190px;display:flex;flex-direction:column;justify-content:center}
+.q .prompt{font-family:var(--serif);font-size:clamp(4.5rem,24vw,6.5rem);line-height:1}
+.q .prompt.text{font-size:2.2rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts .btn{font-family:var(--serif);font-size:1.35rem;font-weight:400;min-height:64px}
+.opts .btn.greek{font-size:2.2rem}
+.opts .btn.right{background:color-mix(in srgb,var(--good) 18%,var(--surface));border-color:var(--good)}
+.opts .btn.wrong{background:color-mix(in srgb,var(--bad) 16%,var(--surface));border-color:var(--bad)}
+.feedback{min-height:48px;margin-top:12px;font-size:.92rem;line-height:1.4;text-align:center}
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:middle}
+th{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+td.g{font-family:var(--serif);font-size:1.6rem;white-space:nowrap}
+td.s{font-family:var(--serif);font-size:1.1rem}
+td.s sup{font-size:.6em}
+tr:last-child td{border-bottom:0}
+.rules{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;margin-top:14px;line-height:1.5;font-size:.92rem}
+.rules h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:6px}
+.rules li{margin:6px 0 6px 18px}
+.rules .gr{font-family:var(--serif);font-size:1.1em}
+[hidden]{display:none!important}
+.done{text-align:center;padding:30px 10px}
+.done .big{font-size:4rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg viewBox="0 0 32 32" fill="none" aria-label="Логотип: альфа и омега"><rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="currentColor" stroke-width="2"/><text x="16" y="22.5" text-anchor="middle" font-size="17" fill="currentColor" font-family="Gentium Plus,serif">αω</text></svg>
+    <div><h1>Греческий алфавит</h1><p>Маунс, «Основы библейского греческого языка», гл. 3, с. 23–27</p></div>
+  </header>
+
+  <!-- CARDS -->
+  <section id="v-cards">
+    <div class="row" style="justify-content:space-between">
+      <div class="seg" role="group" aria-label="Направление">
+        <button data-dir="g" aria-pressed="true">Буква → название</button>
+        <button data-dir="r" aria-pressed="false">Название → буква</button>
+      </div>
+      <div class="seg" role="group" aria-label="Набор">
+        <button data-set="all" aria-pressed="true">Все</button>
+        <button data-set="hard" aria-pressed="false">Трудные</button>
+      </div>
+    </div>
+    <div class="bar"><i id="cardBar"></i></div>
+    <div class="row" style="justify-content:space-between"><span class="meta" id="cardMeta"></span><button class="btn" id="shuffle" style="min-height:36px;padding:6px 12px;font-size:.8rem">Перемешать</button></div>
+    <div id="cardArea">
+      <div class="stage"><div class="card" id="card" tabindex="0" role="button" aria-label="Перевернуть карточку">
+        <div class="face front" id="fFront"></div>
+        <div class="face back" id="fBack"></div>
+      </div></div>
+      <div class="grid2">
+        <button class="btn bad" id="again">Повторить</button>
+        <button class="btn good" id="know">Знаю</button>
+      </div>
+    </div>
+    <div class="done" id="cardDone" hidden>
+      <div class="big">✓</div>
+      <p style="margin:10px 0 16px">Круг пройден. Отмечено «знаю»: <b id="doneKnown"></b> из <b id="doneTotal"></b>.</p>
+      <button class="btn primary" id="restart">Начать заново</button>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="v-quiz" hidden>
+    <div class="seg" role="group" aria-label="Тип теста" style="width:max-content;max-width:100%;flex-wrap:wrap">
+      <button data-q="name" aria-pressed="true">Название</button>
+      <button data-q="letter" aria-pressed="false">Буква</button>
+      <button data-q="sound" aria-pressed="false">Звук</button>
+    </div>
+    <div class="bar"><i id="quizBar"></i></div>
+    <div class="row" style="justify-content:space-between"><span class="meta" id="quizMeta"></span><span class="meta" id="quizScore"></span></div>
+    <div id="quizArea">
+      <div class="q"><div class="meta" id="qAsk" style="margin-bottom:10px"></div><div class="prompt" id="qPrompt"></div></div>
+      <div class="opts" id="qOpts"></div>
+      <div class="feedback" id="qFb"></div>
+      <button class="btn primary" id="qNext" style="width:100%" hidden>Дальше</button>
+    </div>
+    <div class="done" id="quizDone" hidden>
+      <div class="big" id="quizPct"></div>
+      <p style="margin:10px 0 6px" id="quizSum"></p>
+      <p class="meta" id="quizMiss" style="margin-bottom:16px"></p>
+      <button class="btn primary" id="quizRestart">Ещё раз</button>
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section id="v-table" hidden>
+    <table>
+      <thead><tr><th>Буква</th><th>Название</th><th>Звук</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="rules">
+      <h3>Главное из главы 3</h3>
+      <ul>
+        <li>Гласные: <span class="gr">α, ε, η, ι, ο, υ, ω</span> (§3.2).</li>
+        <li><span class="gr">ε, ο</span> всегда краткие; <span class="gr">η, ω</span> всегда долгие; <span class="gr">α, ι</span> бывают и теми и другими (§3.3).</li>
+        <li>Двумя русскими буквами передаются <span class="gr">ζ</span> «дз», <span class="gr">ξ</span> «кс», <span class="gr">ψ</span> «пс» (§3.2).</li>
+        <li>Не путать: <span class="gr">ν</span> и <span class="gr">υ</span> (написание); <span class="gr">ε</span>/<span class="gr">η</span>, <span class="gr">ο</span>/<span class="gr">ω</span>, <span class="gr">θ</span>/<span class="gr">τ</span> (звучание); русскую «в» и <span class="gr">β</span> [б] (§3.2).</li>
+        <li><span class="gr">ς</span> пишется только в конце слова, <span class="gr">σ</span> — в остальных местах: <span class="gr">ἀπόστολος</span> (§3.2).</li>
+        <li>Перед <span class="gr">γ, κ, χ, ξ</span> гамма звучит [н]: <span class="gr">ἄγγελος</span> [ангэлос] (§3.3).</li>
+        <li>Каждое слово на гласную или <span class="gr">ρ</span> имеет знак придыхания. Густое <span class="gr">ὑ</span> даёт [х]: <span class="gr">ὑπέρ</span> [ху̣пэр]; тонкое <span class="gr">ἀ</span> не произносится: <span class="gr">ἀπόστολος</span> [апостолос]. Слова на <span class="gr">ρ</span> и <span class="gr">υ</span> — всегда с густым (§3.4).</li>
+      </ul>
+      <p class="src">Источник: Маунс, Учебник, гл. 3, §3.1–3.4, с. 23–26. Подведение итогов — с. 27.</p>
+    </div>
+  </section>
+</div>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" data-v="cards" aria-selected="true"><span>α</span>Карточки</button>
+  <button role="tab" data-v="quiz" aria-selected="false"><span>?</span>Тест</button>
+  <button role="tab" data-v="table" aria-selected="false"><span>Ω</span>Таблица</button>
+</nav>
+
+<script src="data.js"></script>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY='mounce-ch3-alphabet';
+const store=(()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}})();
+store.known=store.known||{}; store.hard=store.hard||{};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const SRC='Маунс, гл. 3, с. 24–25';
+
+/* tabs */
+$$('nav.tabs button').forEach(b=>b.onclick=()=>{
+  $$('nav.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  ['cards','quiz','table'].forEach(v=>$('#v-'+v).hidden=v!==b.dataset.v);
+  if(b.dataset.v==='quiz'&&!quiz.list.length)startQuiz();
+  scrollTo(0,0);
+});
+function pressed(group,btn){group.forEach(x=>x.setAttribute('aria-pressed',x===btn))}
+
+/* cards */
+let dir='g', set='all', deck=[], idx=0, knownRound=0;
+function letterFace(L){return `<div class="num">${L.n}/24</div><div class="big">${L.low}</div><div class="upper">прописная ${L.up}</div><div class="hint">нажмите, чтобы перевернуть</div>`}
+function infoFace(L,showLetter){return `<div class="num">${L.n}/24</div>
+  ${showLetter?`<div class="big" style="font-size:5rem">${L.low}</div><div class="upper" style="margin:0 0 6px">прописная ${L.up}</div>`:''}
+  <div class="ru">${L.ru}</div><div class="gn">${L.gn}</div><div class="pron">[${L.pron}]</div>
+  ${L.pnote?`<div class="pnote">${L.pnote}</div>`:''}<div class="note">${L.note}</div><div class="src">${SRC}</div>`}
+function nameFace(L){return `<div class="num">${L.n}/24</div><div class="ru" style="font-size:2.6rem">${L.ru}</div><div class="pron">[${L.pron}]</div>${L.pnote?`<div class="pnote">${L.pnote}</div>`:''}<div class="hint">какая это буква? нажмите</div>`}
+function buildDeck(){
+  let base=set==='hard'?LETTERS.filter(L=>store.hard[L.n]):LETTERS;
+  if(!base.length){base=LETTERS; set='all'; pressed($$('[data-set]'),$('[data-set=all]'));}
+  deck=shuffle(base); idx=0; knownRound=0; $('#cardDone').hidden=true; $('#cardArea').hidden=false; render();
+}
+function render(){
+  const L=deck[idx]; const c=$('#card'); c.classList.remove('flipped');
+  setTimeout(()=>{
+    $('#fFront').innerHTML=dir==='g'?letterFace(L):nameFace(L);
+    $('#fBack').innerHTML=dir==='g'?infoFace(L,false):infoFace(L,true);
+  }, c.dataset.init?120:0); c.dataset.init=1;
+  $('#cardMeta').textContent=`Карточка ${idx+1} из ${deck.length} · знаю: ${Object.keys(store.known).length}/24`;
+  $('#cardBar').style.width=(idx/deck.length*100)+'%';
+}
+function next(k){
+  const L=deck[idx];
+  if(k){store.known[L.n]=1; delete store.hard[L.n]; knownRound++}
+  else{store.hard[L.n]=1; delete store.known[L.n]}
+  save(); idx++;
+  if(idx>=deck.length){$('#cardArea').hidden=true;$('#cardDone').hidden=false;$('#doneKnown').textContent=knownRound;$('#doneTotal').textContent=deck.length;$('#cardBar').style.width='100%';
+    $('#cardMeta').textContent=`Знаю: ${Object.keys(store.known).length}/24 · трудных: ${Object.keys(store.hard).length}`;}
+  else render();
+}
+$('#card').onclick=()=>$('#card').classList.toggle('flipped');
+$('#card').onkeydown=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();$('#card').classList.toggle('flipped')}};
+$('#know').onclick=()=>next(true); $('#again').onclick=()=>next(false);
+$('#shuffle').onclick=buildDeck; $('#restart').onclick=buildDeck;
+$$('[data-dir]').forEach(b=>b.onclick=()=>{dir=b.dataset.dir;pressed($$('[data-dir]'),b);render()});
+$$('[data-set]').forEach(b=>b.onclick=()=>{set=b.dataset.set;pressed($$('[data-set]'),b);buildDeck()});
+
+/* quiz */
+const quiz={type:'name',list:[],i:0,score:0,miss:[]};
+function startQuiz(){quiz.list=shuffle(LETTERS);quiz.i=0;quiz.score=0;quiz.miss=[];$('#quizDone').hidden=true;$('#quizArea').hidden=false;ask()}
+function ask(){
+  const L=quiz.list[quiz.i], t=quiz.type;
+  const opts=shuffle([L,...shuffle(LETTERS.filter(x=>x!==L)).slice(0,3)]);
+  $('#qFb').innerHTML=''; $('#qNext').hidden=true;
+  $('#quizMeta').textContent=`Вопрос ${quiz.i+1} из 24`; $('#quizScore').textContent=`верно: ${quiz.score}`;
+  $('#quizBar').style.width=(quiz.i/24*100)+'%';
+  const p=$('#qPrompt');
+  if(t==='name'){$('#qAsk').textContent='Как называется буква?';p.className='prompt';p.innerHTML=L.low}
+  if(t==='letter'){$('#qAsk').textContent='Найдите строчную букву';p.className='prompt text';p.innerHTML=L.ru}
+  if(t==='sound'){$('#qAsk').textContent='Как произносится буква?';p.className='prompt';p.innerHTML=L.low}
+  $('#qOpts').innerHTML='';
+  opts.forEach(o=>{const b=document.createElement('button');b.className='btn'+(t==='letter'?' greek':'');
+    b.innerHTML=t==='name'?o.ru:t==='letter'?o.low:`[${o.pron}]`;
+    b.onclick=()=>answer(b,o===L,L);b.dataset.ok=o===L?1:0;$('#qOpts').appendChild(b)});
+}
+function answer(b,ok,L){
+  $$('#qOpts .btn').forEach(x=>{x.disabled=true;if(x.dataset.ok==='1')x.classList.add('right')});
+  if(ok){quiz.score++;}else{b.classList.add('wrong');quiz.miss.push(L);store.hard[L.n]=1;save()}
+  $('#qFb').innerHTML=`<b style="color:var(${ok?'--good':'--bad'})">${ok?'Верно':'Неверно'}.</b> <span style="font-family:var(--serif);font-size:1.2em">${L.low}</span> — ${L.ru} (<span style="font-family:var(--serif)">${L.gn}</span>), [${L.pron}]. ${L.note}`;
+  $('#quizScore').textContent=`верно: ${quiz.score}`; $('#qNext').hidden=false; $('#qNext').focus();
+}
+$('#qNext').onclick=()=>{quiz.i++; if(quiz.i>=24){finishQuiz()}else ask()};
+function finishQuiz(){$('#quizArea').hidden=true;$('#quizDone').hidden=false;$('#quizBar').style.width='100%';
+  $('#quizPct').textContent=Math.round(quiz.score/24*100)+'%';$('#quizSum').textContent=`Верно ${quiz.score} из 24.`;
+  $('#quizMiss').innerHTML=quiz.miss.length?`Ошибки: <span style="font-family:var(--serif);font-size:1.3em">${quiz.miss.map(x=>x.low).join(' ')}</span> — добавлены в «Трудные» на карточках.`:'Без ошибок.';}
+$('#quizRestart').onclick=startQuiz;
+$$('[data-q]').forEach(b=>b.onclick=()=>{quiz.type=b.dataset.q;pressed($$('[data-q]'),b);startQuiz()});
+
+/* table */
+$('#tbody').innerHTML=LETTERS.map(L=>`<tr><td class="g">${L.up} ${L.low}</td><td>${L.ru}<br><span style="font-family:var(--serif);font-size:1.05rem">${L.gn}</span></td><td class="s">[${L.pron}]${L.pnote?`<br><span class="meta">${L.pnote}</span>`:''}</td></tr>`).join('');
+
+buildDeck();
+</script>
+</body>
+</html>
